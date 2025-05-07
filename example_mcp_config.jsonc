@@ -1,0 +1,93 @@
+{
+  "mcpServers": {
+    /* 📚 Context-aware OSS docs & code snippets
+       Trigger: append "use context7" to any coding prompt
+       e.g. "Fix this Mongo query (use context7)" */
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"]
+    },
+
+    /* 🔎 Real-time web search & extraction
+       Trigger: "search the web for … (use tavily)" OR "tavily.search {query}" */
+    "tavily": {
+      "command": "npx",
+      "args": ["-y", "tavily-mcp@latest"],
+      "env": { "TAVILY_API_KEY": "<YOUR_TAVILY_API_KEY>" }
+    },
+
+    /* 📰 Fetch any URL → clean Markdown/JSON
+       Trigger: "fetch https://site.com/article (use fetch)" */
+    "fetch": {
+      "command": "npx",
+      "args": ["-y", "fetch-mcp@latest"]
+    },
+
+    /* 🌐 Headless Chrome automation / screenshots
+       Trigger: "use browser to open https://example.com and take screenshot" */
+    "browser": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer@latest"]
+    },
+
+    /* 🗄️ Postgres inspector & SQL execution (read-only by default)
+       Trigger: "postgres.list_schemas" or natural language "Check DB health (use postgres)" */
+    "postgres": {
+      "command": "npx",
+      "args": ["-y", "postgres-mcp@latest"],
+      "env": {
+        "PG_CONN": "postgres://username:password@hostname:5432/database_name"
+      }
+    },
+
+    /* 🛠️ Git repo search / diff / PR helper
+       Trigger: "git.diff HEAD~1 HEAD" or "Explain last commit (use git)" */
+    "git": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github@latest"]
+    },
+
+    /* 🧠 Long-term semantic memory store
+       Trigger: "memory.write {key:..., value:...}" or "Recall last project summary (use memory)" */
+    "memory": {
+      "command": "python",
+      "args": ["-m", "mcp_memory_service.server"],
+      "env": {
+        "PYTHONPATH": "/path/to/mcp-memory-service/src",
+        "MCP_MEMORY_CHROMA_PATH": "/path/to/store/chroma_db",
+        "MCP_MEMORY_BACKUPS_PATH": "/path/to/store/backups"
+      }
+    },
+
+    /* 🌈 Access Figma design data
+       Trigger: "figma.get_node 12345" or "Use figma to grab component specs" */
+    "figma": {
+      "command": "npx",
+      "args": ["-y", "@jayarrowz/mcp-figma@latest"]
+    },
+
+    /* ☁️ Cloudflare developer docs lookup & Workers/DNS analytics
+       Trigger: "cfDocs.search 'Turnstile captcha quotas'" or "Show Worker logs" */
+    "cloudflare": {
+      "command": "npx",
+      "args": ["-y", "@cloudflare/mcp-server-cloudflare@latest", "run", "<YOUR_ACCOUNT_ID>"],
+      "env": {
+        "CLOUDFLARE_API_TOKEN": "<YOUR_CLOUDFLARE_API_TOKEN>"
+      }
+    },
+
+    /* 📊 Cloudflare Observability (remote server, no API token needed)
+       Trigger: "Show me Cloudflare analytics" or "Check my Workers usage" */
+    "cloudflare-observability": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://observability.mcp.cloudflare.com/sse"]
+    },
+
+    /* ⚙️ Cloudflare Workers Bindings (remote server, no API token needed)
+       Trigger: "List my Workers bindings" or "Show my D1 databases" */
+    "cloudflare-bindings": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://bindings.mcp.cloudflare.com/sse"]
+    }
+  }
+}
