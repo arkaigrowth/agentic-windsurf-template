@@ -1,6 +1,6 @@
 # Feature Specifications
 
-This directory contains detailed specifications for features and components in the `agentic_project`.
+This directory contains detailed specifications for features and components in the `my_windsurf_project`.
 
 ## Purpose
 These specifications serve as the blueprint for implementation, ensuring:

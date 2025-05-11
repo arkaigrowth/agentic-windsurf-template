@@ -1,7 +1,7 @@
 # Project Architecture (v1)
 
 ## Overview
-This document describes the high-level architecture of the `agentic_project`. It outlines the major components, their responsibilities, and how they interact.
+This document describes the high-level architecture of the `my_windsurf_project`. It outlines the major components, their responsibilities, and how they interact.
 
 **Note:** Consider using the `memory` MCP server to store key architectural decisions or summaries for easy recall by the AI in future sessions.
 
