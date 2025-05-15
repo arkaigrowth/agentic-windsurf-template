@@ -8,18 +8,27 @@ This repo gives you a ready-to-roll project structure for building apps with AI 
 
 ### Repo Structure
 
-- `ai_docs/` = Professor Pelican's Library 📚 - Documentation the AI can understand (API details, architecture, technical details)
+- `.ai_docs/` = Professor Pelican's Library 📚 - Documentation the AI can understand (API details, architecture, technical details)
 - `specs/` = Captain Clipboard's Plans 📋 - Feature specifications (what you're building and how)
-- `.windsurf/` = Windsurf Bro's Command Center 🏄‍♂️ - Templates and rules for working with Windsurf
+- `.windsurf/` = Windsurf Bro's Board Rack 🏄‍♂️ - Templates and rules for working with Windsurf
 - `src/` = Source code for your project (not yet created - you'll add this as you build)
 
 ## Quick Setup (no cap)
 
 1. **Clone this repo** to your machine (or just copy these folders)
 2. **Rename everything** from "my_windsurf_project" to whatever your actual project is called
-3. **Set up your Windsurf config** to use those MCP servers (if you haven't already)
-   - Make sure your MCP config is good to go (see MCP Configuration section below)
+3. **Set up your global rules** to include commands that will automatically set up these agentic folders (`.ai_docs/`, `specs/`, `.windsurf/`) in any repo
+   - **Recommended**: Add template commands to `~/.codeium/windsurf/memories/global_rules.md`
+   - You can edit these via Cascade menu: Customizations > Rules > +Global
+   - Include commands like `setup-agent-workspace` to copy template folders to any workspace
+   - **For detailed instructions, see the [Setup Guide](setup_windsurf_rules_guide.md)**
+     - **NOTE**: You can use the [Setup Script](setup_windsurf_rules.sh) to automatically configure your `~/.codeium/windsurf/memories/global_rules.md` with these agentic repo setup commands
+4. **Set up your Windsurf config** to use those MCP servers (if you haven't already)
+   - Make sure your mcp_config.json is good to go (see MCP Configuration section below)
    - Double-check your API keys aren't expired
+5. **Configure repo-based rules** according to your project's specific needs
+   - Create `.windsurf/rules/*.md` file in your project
+   - See [Windsurf Rules Documentation](.windsurf/README.md) for detailed instructions and examples of global and repo-based rules.
 
 ## MCP Configuration - The Secret Sauce 🌶️
 
@@ -58,6 +67,7 @@ Most MCP servers work right out of the box with npx, but some (like memory) need
 - `figma`: Connects to your design files for implementing UI/UX
 - `postgres`: Understands your database schema (when working with PostgreSQL)
 - `browser`: Controls a headless browser for testing and automation
+- `puppeteer`: Controls a headless browser for testing and automation
 
 Check the comments in `example_mcp_config.jsonc` for how to trigger each MCP!
 
@@ -65,13 +75,12 @@ Check the comments in `example_mcp_config.jsonc` for how to trigger each MCP!
 
 1. **Prime your AI** with project context
 
-   - Grab the template from `.windsurf/commands/prime_project_context_with_mcp.md`
-   - Paste it into your Windsurf chat
+   - Mention the template from `.windsurf/workflows/prime_project_context_with_mcp.md` in Cascade. (e.g. 'refer to @prime_project_context_with_mcp to get context about this project')
    - The AI will use `git` MCP to list files and understand commit history
    - It will use `memory` MCP to store project understanding for future sessions
 2. **Plan new features** before you build
 
-   - Use `.windsurf/commands/draft_feature_spec_with_mcp.md`
+   - Use `.windsurf/workflows/draft_feature_spec_with_mcp.md`
    - Explain what you want to build
    - The AI will use `tavily` to research, `fetch` to get docs, and help write a detailed plan
    - Add the possibility of using `postgres` MCP for database schema understanding
@@ -83,7 +92,7 @@ Check the comments in `example_mcp_config.jsonc` for how to trigger each MCP!
    - Follow the plans created in previous steps
 4. **Document as you go**
 
-   - Update documentation in `ai_docs/` to capture key decisions and implementation details
+   - Update documentation in `.ai_docs/` to capture key decisions and implementation details
    - This ensures both you and the AI have up-to-date context in future sessions
    - Use `memory` MCP to store particularly important insights
 

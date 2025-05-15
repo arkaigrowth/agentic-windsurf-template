@@ -7,7 +7,7 @@
 **SYSTEM PROMPT (For you to give to Windsurf/Claude 3.7 Sonnet):**
 
 #BEGINPROMPT
-"You are an expert AI Engineering Assistant. Your task is to help me, a Senior AI/ML DevOps Engineer, set up a best-practice directory structure and initial template files for a new project: `[PROJECT_NAME_PLACEHOLDER]`. This setup will heavily leverage Agentic Coding principles and integrate with my available Model Context Protocol (MCP) servers. We are adapting the 3-folder system (ai_docs, specs, and a tool-specific prompt directory) for use within the Windsurf environment.
+"You are an expert AI Engineering Assistant. Your task is to help me, a Senior AI/ML DevOps Engineer, set up a best-practice directory structure and initial template files for a new project: `[PROJECT_NAME_PLACEHOLDER]`. This setup will heavily leverage Agentic Coding principles and integrate with my available Model Context Protocol (MCP) servers. We are adapting the 3-folder system (.ai_docs, specs, and a tool-specific prompt directory) for use within the Windsurf environment.
 
 **My Available MCP Servers (from my mcp.json):**
 
@@ -36,11 +36,11 @@ Please generate the content for the following files. For each file, provide the 
 [PROJECT_NAME_PLACEHOLDER]/
 ├── .windsurf_prompts/
 │   ├── README.md
-│   └── commands/
+│   └── workflows/
 │       ├── README.md
 │       ├── prime_project_context_with_mcp.md  # Enhanced priming
 │       └── draft_feature_spec_with_mcp.md     # Enhanced drafting
-├── ai_docs/
+├── .ai_docs/
 │   ├── README.md
 │   ├── example_external_api.md
 │   └── project_architecture_v1.md
@@ -61,11 +61,11 @@ Please generate the content for the following files. For each file, provide the 
 
 * (Content similar to previous prompt.)
 
-**3. Windsurf Commands README (`[PROJECT_NAME_PLACEHOLDER]/.windsurf_prompts/commands/README.md`):**
+**3. Windsurf Workflows README (`[PROJECT_NAME_PLACEHOLDER]/.windsurf_prompts/workflows/README.md`):**
 
 * (Content similar to previous prompt, but add a note: "Many of these prompt templates will suggest the use of specific MCP servers (e.g., `git`, `tavily`, `fetch`). Ensure Windsurf is configured to access these servers for optimal results.")
 
-**4. Enhanced Context Priming Prompt Template (`[PROJECT_NAME_PLACEHOLDER]/.windsurf_prompts/commands/prime_project_context_with_mcp.md`):**
+**4. Enhanced Context Priming Prompt Template (`[PROJECT_NAME_PLACEHOLDER]/.windsurf_prompts/workflows/prime_project_context_with_mcp.md`):**
 
 * Purpose: A template to give Windsurf initial project context, leveraging MCP servers.
 * Content:
@@ -86,7 +86,7 @@ Please generate the content for the following files. For each file, provide the 
      7.  Confirm you are ready for further tasks.
 
     **Key files/directories to pay special attention to (if known by user already):**
-     *   `ai_docs/`: Contains API specifications, architectural documents.
+     *   `.ai_docs/`: Contains API specifications, architectural documents.
      *   `specs/`: Contains detailed feature plans.
      *   `src/`: (Assuming a common source directory)
   ```
@@ -95,7 +95,7 @@ Please generate the content for the following files. For each file, provide the 
   * `git` MCP: Directly gets branch, recent commits, and file list, which is more reliable and efficient than me pasting it. This is a direct replacement for the manual step.
   * `memory` MCP: Stores the AI's understanding for future sessions, making context priming more efficient over time.
 
-**5. Enhanced Feature Spec Drafting Prompt Template (`[PROJECT_NAME_PLACEHOLDER]/.windsurf_prompts/commands/draft_feature_spec_with_mcp.md`):**
+**5. Enhanced Feature Spec Drafting Prompt Template (`[PROJECT_NAME_PLACEHOLDER]/.windsurf_prompts/workflows/draft_feature_spec_with_mcp.md`):**
 
 * Purpose: A template to ask Windsurf to help draft a feature spec, using MCPs for research.
 * Content:
@@ -128,15 +128,15 @@ Please generate the content for the following files. For each file, provide the 
   * `figma` (suggested use): If UI is involved, the AI can guide the user on what Figma data might be relevant.
   * `postgres` (suggested use): If DB changes are needed, the AI can ask for schema info to make better suggestions.
 
-**6. AI Docs README (`[PROJECT_NAME_PLACEHOLDER]/ai_docs/README.md`):**
+**6. AI Docs README (`[PROJECT_NAME_PLACEHOLDER]/.ai_docs/README.md`):**
 
 * (Content similar to previous prompt, but add: "Information gathered via MCP servers (e.g., `fetch` for API docs) can be summarized and stored here for persistent project knowledge.")
 
-**7. Example External API Doc (`[PROJECT_NAME_PLACEHOLDER]/ai_docs/example_external_api.md`):**
+**7. Example External API Doc (`[PROJECT_NAME_PLACEHOLDER]/.ai_docs/example_external_api.md`):**
 
 * (Content similar to previous prompt. Add a note: "This document can be initially populated using the `fetch` MCP server on the API's official documentation URL, then refined by a human.")
 
-**8. Project Architecture Doc (`[PROJECT_NAME_PLACEHOLDER]/ai_docs/project_architecture_v1.md`):**
+**8. Project Architecture Doc (`[PROJECT_NAME_PLACEHOLDER]/.ai_docs/project_architecture_v1.md`):**
 
 * (Content similar to previous prompt. Add a note: "Consider using the `memory` MCP server to store key architectural decisions or summaries for easy recall by the AI in future sessions.")
 

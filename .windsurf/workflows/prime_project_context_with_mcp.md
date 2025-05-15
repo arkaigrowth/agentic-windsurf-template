@@ -13,6 +13,6 @@
 7.  Confirm you are ready for further tasks.
 
 **Key files/directories to pay special attention to (if known by user already):**
-*   `ai_docs/`: Contains API specifications, architectural documents.
+*   `.ai_docs/`: Contains API specifications, architectural documents.
 *   `specs/`: Contains detailed feature plans.
 *   `src/`: (Assuming a common source directory)
