@@ -1,0 +1,41 @@
+name: "Agent Workspace Setup"
+description: "Sets up a new project based on the agentic-windsurf-template"
+version: "1.0.0"
+author: "Alex Kamysz"
+
+triggers:
+  commands:
+    - "setup-agent-workspace"
+    - "init-agent-project"
+    - "prep-agent-env"
+  fuzzy_match: true
+  fuzzy_threshold: 0.7
+
+actions:
+  setup_from_template:
+    type: "custom_command"
+    implementation: |
+      async function setupFromTemplate(args) {
+        // Get project name from user
+        const projectName = await windsurf.showInputBox({ 
+          prompt: "Enter a name for your new project",
+          placeHolder: "my-new-project"
+        });
+        
+        if (!projectName) return "Setup canceled";
+        
+        // Get destination path from user
+        const destPath = await windsurf.showInputBox({
+          prompt: "Enter destination path (leave empty for current directory)",
+          placeHolder: "."
+        }) || ".";
+        
+        // Clone the template repository
+        const templateRepo = "https://github.com/arkaigrowth/agentic-windsurf-template";
+        await windsurf.executeCommand(`git clone ${templateRepo} ${destPath}/${projectName}`);
+        
+        // Open the workspace
+        await windsurf.executeCommand(`code ${destPath}/${projectName}/my_windsurf_project.code-workspace`);
+        
+        return `Project template loaded successfully at ${destPath}/${projectName}`;
+      }

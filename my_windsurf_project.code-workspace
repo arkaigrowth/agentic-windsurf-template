@@ -4,5 +4,15 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"editor.formatOnSave": true,
+		"windsurf.cascade.activeRules": ["agent-workspace-setup"],
+		"files.exclude": {
+			"**/.git": true,
+			"**/.DS_Store": true
+		}
+	},
+	"extensions": {
+		"recommendations": ["windsurf.cascade"]
+	}
 }
