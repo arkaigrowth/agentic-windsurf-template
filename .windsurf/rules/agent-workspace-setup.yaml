@@ -16,26 +16,37 @@ actions:
     type: "custom_command"
     implementation: |
       async function setupFromTemplate(args) {
-        // Get project name from user
-        const projectName = await windsurf.showInputBox({ 
-          prompt: "Enter a name for your new project",
-          placeHolder: "my-new-project"
-        });
+        // Get destination path (current workspace by default)
+        const destPath = args.path || await windsurf.executeCommand('pwd');
         
-        if (!projectName) return "Setup canceled";
+        // Create a temporary directory for cloning
+        const tempDir = `/tmp/template-${Date.now()}`;
+        await windsurf.executeCommand(`mkdir -p ${tempDir}`);
         
-        // Get destination path from user
-        const destPath = await windsurf.showInputBox({
-          prompt: "Enter destination path (leave empty for current directory)",
-          placeHolder: "."
-        }) || ".";
-        
-        // Clone the template repository
-        const templateRepo = "https://github.com/arkaigrowth/agentic-windsurf-template";
-        await windsurf.executeCommand(`git clone ${templateRepo} ${destPath}/${projectName}`);
-        
-        // Open the workspace
-        await windsurf.executeCommand(`code ${destPath}/${projectName}/my_windsurf_project.code-workspace`);
-        
-        return `Project template loaded successfully at ${destPath}/${projectName}`;
+        try {
+          // Clone the template repository to temp directory
+          const templateRepo = "https://github.com/arkaigrowth/agentic-windsurf-template";
+          await windsurf.executeCommand(`git clone ${templateRepo} ${tempDir}`);
+          
+          // Copy template contents to destination (excluding .git directory)
+          await windsurf.executeCommand(`cp -R ${tempDir}/* ${destPath}/`);
+          await windsurf.executeCommand(`cp -R ${tempDir}/.windsurf ${destPath}/`);
+          
+          // Copy hidden files (except .git)
+          await windsurf.executeCommand(`find ${tempDir} -maxdepth 1 -name ".*" -not -name ".git" -exec cp -R {} ${destPath}/ \;`);
+          
+          // Cleanup temp directory
+          await windsurf.executeCommand(`rm -rf ${tempDir}`);
+          
+          // Open the workspace file if it exists
+          if (await windsurf.executeCommand(`test -f ${destPath}/my_windsurf_project.code-workspace && echo "exists"`)) {
+            await windsurf.executeCommand(`code ${destPath}/my_windsurf_project.code-workspace`);
+          }
+          
+          return `Template contents copied successfully to ${destPath}`;
+        } catch (error) {
+          // Clean up on error
+          await windsurf.executeCommand(`rm -rf ${tempDir}`);
+          return `Error setting up template: ${error.message}`;
+        }
       }
