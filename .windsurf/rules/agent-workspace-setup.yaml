@@ -30,7 +30,15 @@ actions:
           
           // Copy template contents to destination (excluding .git directory)
           await windsurf.executeCommand(`cp -R ${tempDir}/* ${destPath}/`);
-          await windsurf.executeCommand(`cp -R ${tempDir}/.windsurf ${destPath}/`);
+          
+          // Copy .windsurf directory but exclude the agent-workspace-setup.yaml file
+          await windsurf.executeCommand(`mkdir -p ${destPath}/.windsurf`);
+          await windsurf.executeCommand(`cp -R ${tempDir}/.windsurf/* ${destPath}/.windsurf/`);
+          
+          // If rules directory exists, exclude the agent-workspace-setup.yaml file
+          if (await windsurf.executeCommand(`test -d ${tempDir}/.windsurf/rules && echo "exists"`)) {
+            await windsurf.executeCommand(`find ${tempDir}/.windsurf/rules -type f -not -name "agent-workspace-setup.yaml" -exec cp {} ${destPath}/.windsurf/rules/ \;`);
+          }
           
           // Copy hidden files (except .git)
           await windsurf.executeCommand(`find ${tempDir} -maxdepth 1 -name ".*" -not -name ".git" -exec cp -R {} ${destPath}/ \;`);
