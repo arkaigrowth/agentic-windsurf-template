@@ -28,8 +28,19 @@ actions:
           const templateRepo = "https://github.com/arkaigrowth/agentic-windsurf-template";
           await windsurf.executeCommand(`git clone ${templateRepo} ${tempDir}`);
           
-          // Copy template contents to destination (excluding .git directory)
-          await windsurf.executeCommand(`cp -R ${tempDir}/* ${destPath}/`);
+          // Copy template contents to destination, excluding specific files
+          const excludedFiles = [
+            'WINDSURF_BUILD.md',
+            'setup_windsurf_rules.sh',
+            'example_mcp_config.jsonc',
+            'my_windsurf_project.code-workspace'
+          ];
+          
+          // Copy all files except excluded ones
+          await windsurf.executeCommand(`find ${tempDir} -maxdepth 1 -type f ${excludedFiles.map(file => `-not -name "${file}"`).join(' ')} -exec cp {} ${destPath}/ \;`);
+          
+          // Copy directories except .git
+          await windsurf.executeCommand(`find ${tempDir} -maxdepth 1 -type d -not -path "${tempDir}/.git" -not -path "${tempDir}" -not -path "${tempDir}/.windsurf" -exec cp -R {} ${destPath}/ \;`);
           
           // Copy .windsurf directory but exclude the agent-workspace-setup.yaml file
           await windsurf.executeCommand(`mkdir -p ${destPath}/.windsurf`);
@@ -45,11 +56,6 @@ actions:
           
           // Cleanup temp directory
           await windsurf.executeCommand(`rm -rf ${tempDir}`);
-          
-          // Open the workspace file if it exists
-          if (await windsurf.executeCommand(`test -f ${destPath}/my_windsurf_project.code-workspace && echo "exists"`)) {
-            await windsurf.executeCommand(`code ${destPath}/my_windsurf_project.code-workspace`);
-          }
           
           return `Template contents copied successfully to ${destPath}`;
         } catch (error) {
