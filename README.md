@@ -9,6 +9,7 @@ This repo gives you a ready-to-roll project structure for building apps with AI 
 ### Repo Structure
 
 - `.ai_docs/` = Professor Pelican's Library 📚 - Documentation the AI can understand (API details, architecture, technical details)
+  - `.ai_docs/construction_log.md` = The Project Journal 📓 - Running log of development history, key decisions, and implementation details
 - `specs/` = Captain Clipboard's Plans 📋 - Feature specifications (what you're building and how)
 - `.windsurf/` = Windsurf Bro's Board Rack 🏄‍♂️ - Templates and rules for working with Windsurf
 - `src/` = Source code for your project (not yet created - you'll add this as you build)
@@ -93,6 +94,7 @@ Check the comments in `example_mcp_config.jsonc` for how to trigger each MCP!
 4. **Document as you go**
 
    - Update documentation in `.ai_docs/` to capture key decisions and implementation details
+   - Maintain the construction log (`.ai_docs/construction_log.md`) before commits to document development history
    - This ensures both you and the AI have up-to-date context in future sessions
    - Use `memory` MCP to store particularly important insights
 

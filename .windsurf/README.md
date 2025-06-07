@@ -106,13 +106,29 @@ Rules should be written in clean, structured markdown following this general for
 - **Update Regularly**: Keep rules in sync with evolving project conventions
 - **Test Rules**: Verify that Windsurf correctly applies your rules
 
+## Construction Log Integration
+
+The construction log (`.ai_docs/construction_log.md`) is a critical project artifact that documents the development history and key decisions. It serves as an important reference for both developers and AI assistants.
+
+### Purpose of the Construction Log
+
+- **Historical Record**: Maintains a chronological log of development activities
+- **Decision Documentation**: Records the rationale behind important technical decisions
+- **Context Preservation**: Ensures context is maintained across development sessions
+- **Knowledge Transfer**: Facilitates knowledge sharing among team members and with AI assistants
+
+### Integration with Git Workflow
+
+The `git_workflow.md` rule instructs the AI to prompt users about updating the construction log before committing or pushing code changes. This ensures that important details are captured at the right time.
+
 ## Workflow Integration
 
-For optimal results, use both components together:
+For optimal results, use all components together:
 
 1. **Start with workflows**: Use workflow templates to initiate structured processes
 2. **Reference rules**: Encourage the AI to follow the established rules in the rules directory
-3. **Iterate as needed**: Provide feedback to refine outputs and continuously improve rules
+3. **Maintain the construction log**: Update the log before commits to document development history
+4. **Iterate as needed**: Provide feedback to refine outputs and continuously improve rules
 
 ## Understanding Global vs. Repo-Based Rules
 
